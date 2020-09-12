@@ -9,10 +9,10 @@ arguments. For example, "python main.py --filter-scales 2 5 --K 50"
 '''
 
 import argparse
-
+from types import SimpleNamespace
 def get_opts():
     parser = argparse.ArgumentParser(description='16-720 HW1: Scene Recognition')
-
+25
     ## Paths
     parser.add_argument('--data-dir', type=str, default='../data',
                         help='data folder')
@@ -23,12 +23,12 @@ def get_opts():
 
     ## Visual words (requires tuning)
     parser.add_argument('--filter-scales', nargs='+', type=float,
-                        default=[1, 2],
+                        default=[1, 2, 3, 5, 10],
                         help='a list of scales for all the filters')
-    parser.add_argument('--K', type=int, default=10,
+    parser.add_argument('--K', type=int, default=25,
                         help='# of words')
     parser.add_argument('--alpha', type=int, default=25,
-                        help='Using only a subset of alpha pixels in each image') 
+                        help='Using only a subset of alpha pixels in each image')
 
     ## Recognition system (requires tuning)
     parser.add_argument('--L', type=int, default=1,
@@ -38,4 +38,5 @@ def get_opts():
 
     ##
     opts = parser.parse_args()
+
     return opts

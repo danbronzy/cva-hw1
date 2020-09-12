@@ -15,10 +15,10 @@ def display_filter_responses(opts, response_maps):
     [input]
     * response_maps: a numpy.ndarray of shape (H,W,3F)
     '''
-    
+
     n_scale = len(opts.filter_scales)
     plt.figure(1)
-    
+
     for i in range(n_scale*4):
         plt.subplot(n_scale, 4, i+1)
         resp = response_maps[:, :, i*3:i*3 + 3]
