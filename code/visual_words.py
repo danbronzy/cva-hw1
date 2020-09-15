@@ -22,14 +22,10 @@ def extract_filter_responses(opts, img):
     '''
     imgH = img.shape[0]
     imgW = img.shape[1]
-
+    
     #scale appropriately
-    maxVal = np.max(img)
-    minVal = np.min(img)
-    if maxVal > 1 or minVal < 0:
-        print("Images requires scaling...")
-        img = (img - minVal) / (maxVal - minVal)
-
+    if img.dtype != ('float32' or 'float64'):
+        img = np.array(img).astype(np.float32)/255
 
     #duplicate grayscale images into 3 dimensions
     if img.ndim == 2:

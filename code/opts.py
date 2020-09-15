@@ -12,7 +12,7 @@ import argparse
 from types import SimpleNamespace
 def get_opts():
     parser = argparse.ArgumentParser(description='16-720 HW1: Scene Recognition')
-25
+
     ## Paths
     parser.add_argument('--data-dir', type=str, default='../data',
                         help='data folder')

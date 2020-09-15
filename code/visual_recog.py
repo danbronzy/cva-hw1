@@ -4,7 +4,6 @@ from copy import copy
 
 import numpy as np
 from PIL import Image
-
 import visual_words
 
 
@@ -21,8 +20,12 @@ def get_feature_from_wordmap(opts, wordmap):
     '''
 
     K = opts.K
-    # ----- TODO -----
-    pass
+    print("Wordmap shape: {}".format(wordmap.shape))
+    (hist, bins) = np.histogram(wordmap, bins=K, range=(0,K))
+    hist = hist/np.sum(hist)
+    # plt.bar(bins[:-1], hist, align='edge')
+    # plt.show()
+    return hist
 
 def get_feature_from_wordmap_SPM(opts, wordmap):
     '''
@@ -35,12 +38,36 @@ def get_feature_from_wordmap_SPM(opts, wordmap):
     [output]
     * hist_all: numpy.ndarray of shape (K*(4^L-1)/3)
     '''
-        
+
     K = opts.K
     L = opts.L
+    tl = np.ones((10,5))
+    tr = 2*tl
+    bl = 3*tl
+    br = 4 * tl
+    top = np.hstack((tl, tr))
+    bottom = np.hstack((bl, br))
+    testImg = np.vstack((top, bottom))
+    testImg
+
+    # testImg = np.ndarray((200, 100))
+    testL = 2
+    testImg.shape[0]
+    subHeight = testImg.shape[0] / pow(2,testL - 1)
+    subWidth = testImg.shape[1] / pow(2,testL - 1)
+    print("width: {} -- height: {}".format(subWidth, subHeight))
+
+    yInds = (np.floor(np.linspace(0, testImg.shape[0],pow(2,testL - 1) + 1)[:-1])).astype(int)
+    yInds = np.append(yInds, testImg.shape[0])
+    xInds = (np.floor(np.linspace(0, testImg.shape[1],pow(2,testL - 1) + 1)[:-1])).astype(int)
+    xInds = np.append(xInds, testImg.shape[1])
+    yPairs = list(zip(yInds[:-1], yInds[1:]))
+    xPairs = list(zip(xInds[:-1], xInds[1:]))
+    subImgs = [testImg[t:b, l:r] for t,b in yPairs for l,r in xPairs]
+    subImgs[3]
     # ----- TODO -----
     pass
-    
+
 def get_image_feature(opts, img_path, dictionary):
     '''
     Extracts the spatial pyramid matching feature.
@@ -105,8 +132,8 @@ def distance_to_set(word_hist, histograms):
     '''
 
     # ----- TODO -----
-    pass    
-    
+    pass
+
 def evaluate_recognition_system(opts, n_worker=1):
     '''
     Evaluates the recognition system for all test images and returns the confusion matrix.
@@ -136,4 +163,3 @@ def evaluate_recognition_system(opts, n_worker=1):
 
     # ----- TODO -----
     pass
-

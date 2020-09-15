@@ -26,14 +26,19 @@ def main():
     # visual_words.compute_dictionary(opts, n_worker=n_cpu)
 
     ## Q1.3
-    img_path = join(opts.data_dir, 'highway/sun_aacqsbumiuidokeh.jpg')
+    # img 1: highway/sun_aacqsbumiuidokeh.jpg
+    # img 2: desert/sun_aaqyzvrweabdxjzo.jpg
+    # img 3: kitchen/sun_aasmevtpkslccptd.jpg
+
+    img_path = join(opts.data_dir, 'kitchen/sun_aasmevtpkslccptd.jpg')
     img = Image.open(img_path)
     img = np.array(img).astype(np.float32)/255
     dictionary = np.load(join(opts.out_dir, 'dictionary.npy'))
     wordmap = visual_words.get_visual_words(opts, img, dictionary)
-    util.visualize_wordmap(wordmap)
+    # util.visualize_wordmap(wordmap)
 
     ## Q2.1-2.4
+    visual_recog.get_feature_from_wordmap(opts, wordmap)
     # n_cpu = util.get_num_CPU()
     # visual_recog.build_recognition_system(opts, n_worker=n_cpu)
 
