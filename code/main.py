@@ -30,26 +30,26 @@ def main():
     # img 2: desert/sun_aaqyzvrweabdxjzo.jpg
     # img 3: kitchen/sun_aasmevtpkslccptd.jpg
 
-    img_path = join(opts.data_dir, 'kitchen/sun_aasmevtpkslccptd.jpg')
-    img = Image.open(img_path)
-    img = np.array(img).astype(np.float32)/255
-    dictionary = np.load(join(opts.out_dir, 'dictionary.npy'))
-    wordmap = visual_words.get_visual_words(opts, img, dictionary)
+    # img_path = join(opts.data_dir, 'kitchen/sun_aasmevtpkslccptd.jpg')
+    # img = Image.open(img_path)
+    # img = np.array(img).astype(np.float32)/255
+    # dictionary = np.load(join(opts.out_dir, 'dictionary.npy'))
+    # wordmap = visual_words.get_visual_words(opts, img, dictionary)
     # util.visualize_wordmap(wordmap)
 
     ## Q2.1-2.4
-    visual_recog.get_feature_from_wordmap(opts, wordmap)
+    # visual_recog.get_feature_from_wordmap_SPM(opts, wordmap)
     # n_cpu = util.get_num_CPU()
     # visual_recog.build_recognition_system(opts, n_worker=n_cpu)
 
     ## Q2.5
-    # n_cpu = util.get_num_CPU()
-    # conf, accuracy = visual_recog.evaluate_recognition_system(opts, n_worker=n_cpu)
+    n_cpu = util.get_num_CPU()
+    conf, accuracy = visual_recog.evaluate_recognition_system(opts, n_worker=n_cpu)
 
-    # print(conf)
-    # print(accuracy)
-    # np.savetxt(join(opts.out_dir, 'confmat.csv'), conf, fmt='%d', delimiter=',')
-    # np.savetxt(join(opts.out_dir, 'accuracy.txt'), [accuracy], fmt='%g')
+    print(conf)
+    print(accuracy)
+    np.savetxt(join(opts.out_dir, 'confmat.csv'), conf, fmt='%d', delimiter=',')
+    np.savetxt(join(opts.out_dir, 'accuracy.txt'), [accuracy], fmt='%g')
 
 
 if __name__ == '__main__':

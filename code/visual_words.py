@@ -22,7 +22,7 @@ def extract_filter_responses(opts, img):
     '''
     imgH = img.shape[0]
     imgW = img.shape[1]
-    
+
     #scale appropriately
     if img.dtype != ('float32' or 'float64'):
         img = np.array(img).astype(np.float32)/255
