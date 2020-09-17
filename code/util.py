@@ -36,6 +36,6 @@ def visualize_wordmap(wordmap, out_path=None):
     plt.axis('equal')
     plt.axis('off')
     plt.imshow(wordmap)
-    plt.show()
     if out_path:
-        plt.savefig(out_path, pad_inches=0)
+        plt.savefig(out_path, bbox_inches = 'tight', pad_inches=0)
+    plt.show()

@@ -95,7 +95,7 @@ def get_feature_from_wordmap_SPM(opts, wordmap):
     L = opts.L
     (feats, hist) = recursive_SPM(opts, wordmap, L)
     return feats
-    #----- Old iterative atempt (proud of that list comprehension)
+    #----- Old iterative attempt (proud of that list comprehension)
     # #split space into complete tessellation
     # yInds = (np.ceil(np.linspace(0, wordmap.shape[0],pow(2, L - 1) + 1))).astype(int)
     # xInds = (np.ceil(np.linspace(0, wordmap.shape[1],pow(2, L - 1) + 1))).astype(int)
