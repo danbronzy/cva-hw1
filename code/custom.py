@@ -16,6 +16,7 @@ import time
 from bayes_opt import BayesianOptimization
 from bayes_opt.logger import JSONLogger
 from bayes_opt.event import Events
+from bayes_opt.util import load_logs
 
 def build_scales(numScale, multiplier):
     num = int(numScale)
@@ -32,7 +33,7 @@ def do_the_thing(scalesNum, scaleMult, alpha, K, L):
     L = int(L)
     K = int(K)
     alpha = int(alpha)
-    
+
     #rewrite with optimizable parameters
     opts.filter_scales = scales
     opts.K = K
@@ -51,7 +52,7 @@ def do_the_thing(scalesNum, scaleMult, alpha, K, L):
 
 def main():
     #instantiate logger
-    logger = JSONLogger(path="./logs.json")
+    logger = JSONLogger(path="./logs2.json")
 
     #bounds on the input parameters
     pbounds = {'scalesNum': (2,7), 'scaleMult': (0.5, 7), 'alpha': (25, 250), 'K': (10, 150), 'L': (1,5)}
@@ -60,18 +61,15 @@ def main():
     optimizer = BayesianOptimization(
         f=do_the_thing,
         pbounds=pbounds,
-        random_state=1,
+        random_state=2,
         verbose=2
     )
 
     #log results
     optimizer.subscribe(Events.OPTIMIZATION_STEP, logger)
 
-    #probe what is the maximum that I've seen so far
-    optimizer.probe(
-        params={'scalesNum': 5, 'scaleMult': 1.5, 'alpha': 25, 'K': 25, 'L': 3},
-        lazy = True
-    )
+    #load logs from last optimization OPTIMIZATION_STEP
+    load_logs(optimizer, logs = ["./logs.json"])
 
     #optimize
     optimizer.maximize(init_points = 5, n_iter = 20)
