@@ -24,6 +24,7 @@ def build_scales(numScale, multiplier):
     yVals = [multiplier * math.pow(1.5, x) for x in xVals]
     return yVals
 
+
 def do_the_thing(scalesNum, scaleMult, alpha, K, L):
     #parse args from command line, only matters for reading/writing directories
     opts = get_opts()
@@ -52,7 +53,7 @@ def do_the_thing(scalesNum, scaleMult, alpha, K, L):
 
 def main():
     #instantiate logger
-    logger = JSONLogger(path="./logs2.json")
+    logger = JSONLogger(path="./logs.json")
 
     #bounds on the input parameters
     pbounds = {'scalesNum': (2,7), 'scaleMult': (0.5, 7), 'alpha': (25, 250), 'K': (10, 150), 'L': (1,5)}
@@ -68,7 +69,7 @@ def main():
     #log results
     optimizer.subscribe(Events.OPTIMIZATION_STEP, logger)
 
-    #load logs from last optimization OPTIMIZATION_STEP
+    #load logs from last optimization
     load_logs(optimizer, logs = ["./logs.json"])
 
     #optimize

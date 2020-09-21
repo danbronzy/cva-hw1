@@ -95,34 +95,7 @@ def get_feature_from_wordmap_SPM(opts, wordmap):
     L = opts.L
     (feats, hist) = recursive_SPM(opts, wordmap, L)
     return feats
-    #----- Old iterative attempt (proud of that list comprehension)
-    # #split space into complete tessellation
-    # yInds = (np.ceil(np.linspace(0, wordmap.shape[0],pow(2, L - 1) + 1))).astype(int)
-    # xInds = (np.ceil(np.linspace(0, wordmap.shape[1],pow(2, L - 1) + 1))).astype(int)
-    # #For some reason, the raw zips were failing in the list comprehension, so make them lists
-    # yPairs = list(zip(yInds[:-1], yInds[1:]))
-    # xPairs = list(zip(xInds[:-1], xInds[1:]))
-    #
-    # #extract all subimage histograms, with normalization
-    # subHists = [get_feature_from_wordmap(opts, wordmap[t:b, l:r])/pow(4, L-1)
-    #             for t,b in yPairs for l,r in xPairs]
-    #
-    # #reshape into [pow(2, L-1), pow(2, L-1), K] ndarray corresponding to sub-histograms
-    # subHists = np.asarray(subHists).reshape(pow(2, L-1), pow(2, L-1), K)
-    #
-    # #generate weights for histograms, from smallest to largest
-    # divisors = [pow(2,l+1) for l in range(L)]
-    # divisors[-1] //= 2
-    # print("Divisors: {}".format(divisors))
-    #
-    # #iteratively weight histograms
-    # ret = np.ndarray(0)
-    # for div in divisors:
-    #     #append this layer of histrograms to the feature list, properly weighted
-    #     ret = np.hstack((ret, 1/div * subHists.flatten()))
-    #
-    #     #assemble next layer of histograms and replace into subHists
-    #     #Fuck I should have just used recursion
+
 
 def get_image_feature(opts, img_path, dictionary):
     '''

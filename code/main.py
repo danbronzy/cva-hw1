@@ -15,7 +15,6 @@ import time
 
 def main():
     opts = get_opts()
-
     ## Q1.1
     # img_path = join(opts.data_dir, 'kitchen/sun_aasmevtpkslccptd.jpg')
     # img = Image.open(img_path)
